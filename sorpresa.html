@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Amor Eterno</title>
+    <style>
+        body {
+            background: radial-gradient(circle, #222, #000);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .message {
+            font-size: 2em;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+            margin: 20px;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+            position: relative;
+            z-index: 10;
+            max-width: 90%;
+        }
+
+        .floating-images img,
+        .falling-heart {
+            position: absolute;
+            width: 12vw;
+            max-width: 150px;
+            height: auto;
+            border-radius: 15px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-150px) scale(1); opacity: 1; }
+            100% { transform: translateY(100vh) scale(1.1); opacity: 1; }
+        }
+
+        .floating-images,
+        .falling-hearts-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .falling-heart {
+            object-fit: contain;
+            background: none;
+            border: none;
+            filter: drop-shadow(0px 0px 10px rgba(255, 0, 0, 0.5));
+        }
+
+        /* Diseño responsive para móviles */
+        @media (max-width: 600px) {
+            .message {
+                font-size: 1.5em;
+                padding: 10px;
+            }
+            .floating-images img,
+            .falling-heart {
+                width: 18vw;
+                max-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="message">Cada imagen es un reflejo de lo hermosa que eres y lo mucho que te amo ❤️</div>
+    
+    <div class="floating-images"></div>
+    <div class="falling-hearts-container"></div>
+
+    <script>
+        const imagePaths = [
+            "./img/0.jpg", "./img/1.jpg", "./img/2.jpg",
+            "./img/3.jpg", "./img/4.jpg", "./img/5.jpg",
+            "./img/6.jpg", "./img/7.jpg", "./img/8.jpg",
+            "./img/10.jpg", "./img/11.jpg", "./img/12.jpg", "./img/13.jpg"
+        ];
+
+        function createFallingImage() {
+            const img = document.createElement('img');
+            img.src = imagePaths[Math.floor(Math.random() * imagePaths.length)];
+            img.classList.add('floating-image');
+            img.style.left = Math.random() * 90 + 'vw';
+            img.style.animationDuration = Math.random() * 3 + 6 + 's';
+            document.querySelector('.floating-images').appendChild(img);
+            setTimeout(() => img.remove(), 10000);
+        }
+
+        function createFallingHeart() {
+            const heart = document.createElement('img');
+            heart.src = "./img/corazon.jpg";
+            heart.classList.add('falling-heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 6 + 's';
+            document.querySelector('.falling-hearts-container').appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }
+
+        setInterval(createFallingImage, 1200);
+        setInterval(createFallingHeart, 900);
+    </script>
+</body>
+</html>
